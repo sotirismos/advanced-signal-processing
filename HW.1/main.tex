@@ -1,0 +1,110 @@
+\documentclass[a4paper]{article}
+\input{head}
+\begin{document}
+
+
+%-------------------------------
+%	TITLE SECTION
+%-------------------------------
+
+\fancyhead[C]{}
+\hrule \medskip % Upper rule
+\begin{minipage}{0.295\textwidth}
+\raggedright
+\footnotesize
+Sotirios Moschos \hfill\\
+9030\hfill\\
+moschoss@ece.auth.gr
+\end{minipage}
+\begin{minipage}{0.4\textwidth}
+\centering
+\large
+Homework Assignment 1\\
+\normalsize
+Advanced Signal Processing, 20/21\\
+\end{minipage}
+\begin{minipage}{0.295\textwidth}
+\raggedleft
+\today\hfill\\
+\end{minipage}
+\medskip\hrule
+\bigskip
+
+%-------------------------------
+%	CONTENTS
+%-------------------------------
+
+\section{First Exercise}
+The first exercise given is the following:
+
+\includegraphics{Images/ASP_HW1.PNG}
+
+\subsection{First Sub-task}
+
+At first, we compute the 3rd order cumulants of X(k).
+\begin{equation*}
+\begin{aligned}
+c_3^x(\tau1,\tau2) &= m_3^x(\tau1,\tau2)-m_1^x[m_2^x(\tau1)+m_2^x(\tau2)+m_2^x(\tau2-\tau1)]+2(m_1^x)^3 \\
+&= m_3^x(\tau1,\tau2) \text{ because } m_1^x=E[X(k)]=E[W(k)]-E[W(k-1)]=0 \\
+\end{aligned}
+\end{equation*}
+
+Hence,
+\begin{equation*}
+\begin{aligned}
+c_3^x(\tau1,\tau2) &= m_3^x(\tau1,\tau2) = E(X(k)X(k+\tau1)X(k+\tau2) \\
+&= E((W(k)-W(k-1))(W(k+\tau1)-W(k+\tau1-1)(W(k+\tau2)-W(k+\tau2-1)) \\
+&= E(W(k)W(k+\tau1)W(k+\tau2)-W(k)W(k+\tau1)W(k+\tau2-1)-W(k)W(k+\tau1-1)W(k+\tau2) \\
+&+ W(k)W(k+\tau1-1)W(k+\tau2-1)-W(k-1)W(k+\tau1)W(k+\tau2)+W(k-1)W(k+\tau1-1)W(k+\tau2) \\
+&+ W(k-1)W(k+\tau1)W(k+\tau2-1)-W(k-1)W(k+\tau1-1)W(k+\tau2-1)) \\
+&= E(W(k)W(k+\tau1)W(k+\tau2))-E(W(k)W(k+\tau1)W(k+\tau2-1))-E(W(k)W(k+\tau1-1)W(k+\tau2)) \\
+&+ E(W(k)W(k+\tau1-1)W(k+\tau2-1))-E(W(k-1)W(k+\tau1)W(k+\tau2)) \\
+&+ E(W(k-1)W(k+\tau1-1)W(k+\tau2))+E(W(k-1)W(k+\tau1)W(k+\tau2-1)) \\
+&- E(W(k-1)W(k+\tau1-1)W(k+\tau2-1)) \\ \\
+& W(k),W(k+\tau) \text{ are independent stochastic processes.Thus, } E(W(k)W(k+\tau)=E(W(k)E(W(k+\tau) \\
+\end{aligned}
+\end{equation*}
+
+Hence,
+\begin{equation*}
+\begin{aligned}
+c_3^x(\tau1,\tau2) &= -\delta(\tau1,\tau2-1)-\delta(\tau1-1,\tau2) \\
+&+ \delta(\tau1-1,\tau2-1)-\delta(\tau1+1,\tau2+1) \\
+&+ \delta(\tau1+1,\tau2-1)+\delta(\tau1,\tau2+1) \\
+&= \begin{cases}
+    -1, & \tau1=0,\tau2=1 \\
+    -1, & \tau1=1,\tau2=0 \\
+    +1, & \tau1=1,\tau2=1 \\
+    -1, & \tau1=-1,\tau2=-1 \\
+    +1, & \tau1=-1,\tau2=0 \\
+    +1 & \tau1=0,\tau2=-1 \\
+    \end{cases}
+\end{aligned}
+\end{equation*}
+
+\subsection{Second Sub-task}
+To find the skewness we observe the 3rd order cumulants in \((\tau1,\tau2)=(0,0)\).\\Hence,
+\[\gamma_3^x=c_3^x(0,0)=0\]
+We can state that the stochastic process X(k) has a probability distribution where the observations are perfectly symmetrical around the mean.So, \((m_1^x=0)\) and the observations are symmetrical around (0,0).
+
+\subsection{Third Sub-task}
+\begin{equation*}
+\begin{aligned}
+C_3^x(\omega1,\omega2) &= \sum_{\tau1=-1}^{\tau1=+1}\sum_{\tau2=-1}^{\tau2=+1}c_3^x(\tau1,\tau2)
+e^{-j(\omega1\tau1+\omega2\tau2)} \text{ where, } |\omega1|\leq\pi, |\omega1|\leq\pi,
+|\omega1+\omega2|\leq\pi \\
+&= e^{-j(\omega1+\omega2)}-e^{-j(-\omega1-\omega2)}\\
+&+ e^{j\omega1} + e^{-j\omega2} - e^{-j\omega1} - e^{-j\omega2}\\
+&= -2j(-\sin{\omega1}) - 2j(-\sin{\omega2}) - 2j(\sin{(\omega1+\omega2)})\\
+&= 2j(\sin{\omega1}+\sin{\omega2}-\sin{(\omega1+\omega2)})
+\end{aligned}
+\end{equation*} \\
+Hence, the bispectrum \(C_3^x(\omega1,\omega2)\) is imaginary.
+
+\subsection{Fourth Sub-task}
+If \(c_3^x(\tau1,\tau2)\neq0\) there will be a real part in the bispectrum apart from the imaginary.
+So, we can assume that the skewness of X(k) determines the real part of the bispectrum.
+
+
+
+\end{document}
