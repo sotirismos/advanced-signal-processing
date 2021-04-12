@@ -52,8 +52,8 @@ c_3^x(\tau1,\tau2) &= m_3^x(\tau1,\tau2)-m_1^x[m_2^x(\tau1)+m_2^x(\tau2)+m_2^x(\
 Hence,
 \begin{equation*}
 \begin{aligned}
-c_3^x(\tau1,\tau2) &= m_3^x(\tau1,\tau2) = E(X(k)X(k+\tau1)X(k+\tau2) \\
-&= E((W(k)-W(k-1))(W(k+\tau1)-W(k+\tau1-1)(W(k+\tau2)-W(k+\tau2-1)) \\
+c_3^x(\tau1,\tau2) &= m_3^x(\tau1,\tau2) = E(X(k)X(k+\tau1)X(k+\tau2)) \\
+&= E((W(k)-W(k-1)(W(k+\tau1))-W(k+\tau1-1))(W(k+\tau2)-W(k+\tau2-1))) \\
 &= E(W(k)W(k+\tau1)W(k+\tau2)-W(k)W(k+\tau1)W(k+\tau2-1)-W(k)W(k+\tau1-1)W(k+\tau2) \\
 &+ W(k)W(k+\tau1-1)W(k+\tau2-1)-W(k-1)W(k+\tau1)W(k+\tau2)+W(k-1)W(k+\tau1-1)W(k+\tau2) \\
 &+ W(k-1)W(k+\tau1)W(k+\tau2-1)-W(k-1)W(k+\tau1-1)W(k+\tau2-1)) \\
@@ -61,7 +61,7 @@ c_3^x(\tau1,\tau2) &= m_3^x(\tau1,\tau2) = E(X(k)X(k+\tau1)X(k+\tau2) \\
 &+ E(W(k)W(k+\tau1-1)W(k+\tau2-1))-E(W(k-1)W(k+\tau1)W(k+\tau2)) \\
 &+ E(W(k-1)W(k+\tau1-1)W(k+\tau2))+E(W(k-1)W(k+\tau1)W(k+\tau2-1)) \\
 &- E(W(k-1)W(k+\tau1-1)W(k+\tau2-1)) \\ \\
-& W(k),W(k+\tau) \text{ are independent stochastic processes.Thus, } E(W(k)W(k+\tau)=E(W(k)E(W(k+\tau) \\
+& W(k),W(k+\tau) \text{ are independent stochastic processes.Thus, } E(W(k)W(k+\tau))=E(W(k)E(W(k+\tau)) \\
 \end{aligned}
 \end{equation*}
 
@@ -91,7 +91,7 @@ We can state that the stochastic process X(k) has a probability distribution whe
 \begin{equation*}
 \begin{aligned}
 C_3^x(\omega1,\omega2) &= \sum_{\tau1=-1}^{\tau1=+1}\sum_{\tau2=-1}^{\tau2=+1}c_3^x(\tau1,\tau2)
-e^{-j(\omega1\tau1+\omega2\tau2)} \text{ where, } |\omega1|\leq\pi, |\omega1|\leq\pi,
+e^{-j(\omega1\tau1+\omega2\tau2)} \text{ where, } |\omega1|\leq\pi, |\omega2|\leq\pi,
 |\omega1+\omega2|\leq\pi \\
 &= e^{-j(\omega1+\omega2)}-e^{-j(-\omega1-\omega2)}\\
 &+ e^{j\omega1} + e^{-j\omega2} - e^{-j\omega1} - e^{-j\omega2}\\
@@ -104,7 +104,6 @@ Hence, the bispectrum \(C_3^x(\omega1,\omega2)\) is imaginary.
 \subsection{Fourth Sub-task}
 If \(c_3^x(\tau1,\tau2)\neq0\) there will be a real part in the bispectrum apart from the imaginary.
 So, we can assume that the skewness of X(k) determines the real part of the bispectrum.
-
 
 
 \end{document}
