@@ -1,7 +1,8 @@
 % Advanced Signal Processing, Homework 2
 % Moschos Sotirios, 9030
 clear
-
+clc
+close all
 % Given data
 omega=zeros(1,6);
 lamda=zeros(1,6);
@@ -46,19 +47,28 @@ xlabel('Samples')
 %%%---2)Estimate Power Spectrum.Use 128 max shiftings for autocorrelation---%%%
 
 % Estimate power spectrum or power density spectrum using dsp.SpectrumEstimator 
-%SE=dsp.SpectrumEstimator;
-%C2a=SE(X); % Needs a Nx1 array as input
-%figure;
-%plot(C2a);
+SE=dsp.SpectrumEstimator;
+C2a=SE(X);
+n1=length(C2a);
+fs=1;
+n1=length(C2a);
+x=(0:n1-1)*(fs/n1);
+y=C2a;
+figure;
+plot(x,y);
 
 % Estimate power spectrum using autorr function
 m1=mean(X);
 acf=autocorr(X,128); % ACF
 m2=acf;
-c2=m2-m1^2;% covariance
+c2=m2-m1^2; % covariance
 C2b=abs(fft(c2));
+fs=1;
+n2=length(C2b);
+x=(0:n2-1)*(fs/n2);
+y=C2b;
 figure;
-plot(C2b); % Need to give the right values to the axis x and y 
+plot(x,y);
 
 
 
@@ -76,7 +86,7 @@ figure;
 C3a1_1=bisp3cum(Y,K,L,'u'); % Uniform hexagonal window, specify biased or unbiased estimate
 
 figure;
-C3a1_2=bispeci(Y,K,L,1,'unbiased',256); % Hexagonal window with unity values, HOSA
+C3a1_2=bispeci(Y,L,M,0,'unbiased',128,1); % Hexagonal window with unity values, HOSA
 hline1 = refline(0, 0); % Bispectrum symmetries
 hline1.Color = 'k';
 hline2 = refline(-1, 0.5);
@@ -85,7 +95,7 @@ hline3 = refline(1, 0);
 hline3.Color = 'k';
 
 figure;
-C3a2_1=bispeci(Y,L,M,0,'unbiased',256); % Parzen window,check others parameters as well, HOSA
+C3a2_1=bispeci(Y,L,M,0,'unbiased',128); % Parzen window,check others parameters as well, HOSA, check for fftlength(256)
 hline1 = refline(0, 0); % Bispectrum symmetries
 hline1.Color = 'k';
 hline2 = refline(-1, 0.5);
@@ -98,7 +108,7 @@ C3a2_2=bisp3cum(Y,K,L,'p'); % Parzen window
 
 % Direct method
 figure;
-C3b=bispecd(Y,M,1,M,0);
+C3b=bispecd(Y,M,0,M,0);
 hline1 = refline(0, 0); % Bispectrum symmetries
 hline1.Color = 'k';
 hline2 = refline(-1, 0.5);
