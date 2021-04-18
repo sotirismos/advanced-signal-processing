@@ -77,7 +77,7 @@ Hence, we got the following plots: For the first plot we used the hexagonal wind
 \includegraphics[width=8cm]{{Images/indirect parzen.png}}
 \end{figure}
 
-The are particular advantages and disadvantages on the use of the proper 2D window. When a finite set of measured data is available, the problem of higher-order statistics estimation for a signal is a sensible one. We should take into account the bias, the variance and other quality measures of the estimator, the bispectral resolution and finally, the leakage effect. As we can see from the plots the rectangular window has a higher frequency resolution than the Parzen window because the Parzen window offers the larger relative width of the main lobe compared to the rectangular one. The rectangular window has the larger spectral leakage effect because it has the higher sidelobe level. We obtained this information from the following paper:
+The are particular advantages and disadvantages on the use of the proper 2D window. When a finite set of measured data is available, the problem of higher-order statistics estimation for a signal is a sensible one. We should take into account the bias, the variance and other quality measures of the estimator, the bispectral resolution and finally, the leakage effect. As we can see from the plots the hexagonal window has a higher frequency resolution than the Parzen window because the Parzen window offers the larger relative width of the main lobe compared to the hexagonal one. The hexagonal window has the larger spectral leakage effect because it has the higher sidelobe level. We obtained this information from the following paper:
 (\textbf{Bispectral resolution and leakage effect of the indirect bispectrum estimate for different types of 2D window functions, 2008, Teofil-Cristian Oroian et all.}).
 
 \bigskip
@@ -90,7 +90,7 @@ In order to get the following plot, we used the bicpecd function from HOSA toolb
 \begin{figure}[h]
 \includegraphics[width=8cm]{{Images/direct.png}}
 \end{figure}\newline
-We can state the the direct method has lower frequency resolution than the indirect method.
+On the one hand, we can state that using the direct method, the frequency magnitude appears to be more concentrated to a certain frequency point than using the indirect method. On the other hand, the magnitude values seem to be much lower (0.015,0.05) compared to the indirect method using the hexagonal window (400,1200) and the parzen (100,350) window.
 
 \bigskip
 
@@ -100,9 +100,11 @@ We can state the the direct method has lower frequency resolution than the indir
 
 We can state that this homework assignment is a concrete application of signal processing namely, the quadratic phase coupling detection problem. In general, if we have a signal that is composed of three sinusoids with frequencies $\omega1,\omega2,\omega3$ and phases $\phi1,\phi2,\phi3$, the sinusoids 1 and 2 are said to be quadratically phase coupled (QPC) if and only if and \[\omega1+\omega2=\omega3\] \[\phi1+\phi2=\phi3\]
 Analyzing the power spectrum plot, we can see that all 6 harmonics arise.
-The bispectrum is a useful tool for QPC detection because only the phase couple components appear. In our case, considering the symmetries of the bispectrum we can see that frequency resolutions appear on the frequency points \[(\lambda1,\lambda2),(\lambda4,\lambda5)\] of the primary area. Thus, we can state that the sinusoids 1,2 and 4,5 are quadratically phase coupled.\newline
-We obtained this information from the following paper:
-(\textbf{Quadratic phase coupling phenomenon and its properties, Wieslaw Kicinski, Artur Szczepanski.}).
+The bispectrum is a useful tool for QPC detection because only the phase coupled components appear. In our case, considering the symmetries of the bispectrum we can see that frequency resolutions appear on the frequency points \[(\lambda1,\lambda2),(\lambda4,\lambda5)\] of the primary area. Thus, we can state that the sinusoids 1,2 and 4,5 are quadratically phase coupled.\newline
+We obtained this information from the following papers:
+(\textbf{Quadratic phase coupling phenomenon and its properties, Wieslaw Kicinski, Artur Szczepanski.}). \newline
+(\textbf{A Review of Higher Order Statistics and Spectra in Communication Systems,2013,M. Sanaullah.}).
+
 \bigskip
 
 {\large\textbf{Results and plots with different segment lengths}}
@@ -127,7 +129,7 @@ For the third plot, we used the direct method.
 \includegraphics[width=8cm]{{Images/direct K=16.png}}
 \end{figure}
 
-From (\textbf{Bispectral resolution and leakage effect of the indirect bispectrum estimate for different types of 2D window functions, 2008, Teofil-Cristian Oroian et all.}) when the size L of the 2D window increases, the bispectral resolution is better. But, this value cannot be increasing very much because the variance of the estimator increases.
+From (\textbf{Bispectrum estimation: A digital signal processing framework,1987,C.L. Nikias et all.}), conventional estimators are generally of high variance and therefore a large number of records (K) is required to obtain smooth bispectral estimates. The variance of the estimator is reduced by increasing K or M. However, by increasing K, frequency-domain averaging over small rectangles may increase bias. Moreover, for the indirect method, when the size L of the 2D window increases, the bispectral resolution is better. But, this value cannot be increasing very much because the variance of the estimator increases.
 
 \begin{equation*}
 \begin{aligned}
@@ -140,7 +142,8 @@ From (\textbf{Bispectral resolution and leakage effect of the indirect bispectru
 \end{aligned}
 \end{equation*}
 
-Hence, by increasing the window length to 512 samples we get better frequency resolution but the variance of the estimator increases.
+Hence, by increasing the window length to 512 samples we get better frequency resolution for the indirect method.
+For both methods, K*M stays constant, thus the variance stays constant, but the bias of the estimations is reduced compared to windows with length 256 samples.
 
 In order to get the following plots, we changed the segment lengths from K1=32 to K3=64 and from M1=256 to M3=128 for the indirect and direct bispectrum estimations.\newline
 For the first plot we used the hexagonal window with unity values and for the second plot the parzen window for the indirect bispectrum estimation.
@@ -158,7 +161,8 @@ For the third plot, we used the direct method.
 \includegraphics[width=8cm]{{Images/direct K=64.png}}
 \end{figure}
 
-Hence, by decreasing the window length to 128 samples we get lower frequency resolution and the variance of the estimator decreases.
+Hence, by decreasing the window length to 128 samples we get lower frequency resolution for the indirect method.
+For both methods, K*M stays constant, thus the variance stays constant, but the bias of the estimations is increased compared to windows with length 256 samples.
 
 \newpage
 
@@ -166,11 +170,16 @@ Hence, by decreasing the window length to 128 samples we get lower frequency res
 
 \bigskip
 
-In order to get the following plots, we got 50 realizations of X(k) and we calculated the mean of the values in each frequency point to get the mean estimated power spectrum and the mean estimated bispectrum with different estimation methods. Hence, we got the following plots: \newline
-The first plot is the mean power spectrum. \newline
+In order to get the following plots, we got 50 realizations of X(k) and we calculated the mean of the values in each frequency point to get the mean estimated signal, power spectrum and bispectrum with different estimation methods. Hence, we got the following plots: \newline
+The first plot is the mean signal X(k).\newline
+The second plot is the mean power spectrum. \newline
 The second plot is the mean bispectrum using the indirect method and the hexagonal window with unity values. \newline
 The third plot is the mean bispectrum using the indirect method and the parzen window. \newline
 The fourth plot is the mean bispectrum using the direct method. \newline
+
+\begin{figure}[h]
+\includegraphics[width=8cm]{{Images/Mean X(k).png}}
+\end{figure}
 
 \begin{figure}[h]
 \includegraphics[width=8cm]{{Images/power spectrum 1-50.png}}
@@ -187,6 +196,9 @@ The fourth plot is the mean bispectrum using the direct method. \newline
 \begin{figure}[h]
 \includegraphics[width=8cm]{{Images/direct-50.png}}
 \end{figure}
+
+\newpage
+We can state that due to the randomness of the phase, the frequency resolution of the bispectral estimations decreases.
 
 
 

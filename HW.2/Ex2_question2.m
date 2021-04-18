@@ -34,15 +34,16 @@ K=32;
 M=256;
 L=64;
 
+
 %%%---1)Construct 50 relizations of X[k]---%%%
 
 X=zeros(N,1);
-A=zeros(N,R);
+A=zeros(N,1);
 SE=dsp.SpectrumEstimator;
-powerSpectrum=zeros(N,R); % Power spectrum estimations
-bispectrumA=zeros(M,M,R); % Indirect method,Hexagonal
-bispectrumB=zeros(M,M,R); % Indirect method,Parzen
-bispectrumC=zeros(M,M,R); % Direct method
+powerSpectrum=zeros(N,1); % Power spectrum estimations
+bispectrumA=zeros(M,M); % Indirect method,Hexagonal
+bispectrumB=zeros(M,M); % Indirect method,Parzen
+bispectrumC=zeros(M,M); % Direct method
 
 
 for i=1:R
@@ -55,26 +56,36 @@ for i=1:R
     phi(5)=(b-a).*rand+a;
     phi(6)=phi(4)+phi(5);
     for k=1:N
+        X(k)=0;
         for j=1:6
             X(k)=X(k)+cos(omega(j)*k+phi(j));
         end
     end
-    A(:,i)=X;
-    powerSpectrum(:,i)=SE(X);
+    A=X+A;
+    powerSpectrum=SE(X)+powerSpectrum;
     Y=reshape(X,M,K);
-    bispectrumA(:,:,i)=bispeci(Y,L,M,0,'unbiased',128,1);% Hexagonal window with unity values, HOSA
-    bispectrumB(:,:,i)=bispeci(Y,L,M,0,'unbiased',128); % Parzen window,check others parameters as well, HOSA, check for fftlength(256)
-    bispectrumC(:,:,i)=bispecd(Y,M,0,M,0);
+    [C3a,~]=bispeci(Y,L,M,0,'unbiased',128,1); % Hexagonal window with unity values, HOSA
+    [C3b,~]=bispeci(Y,L,M,0,'unbiased',128); % Parzen window,check others parameters as well, HOSA, check for fftlength(256)
+    [C3c,~]=bispecd(Y,M,0,M,0);
+    bispectrumA(:,:)=bispectrumA+C3a;
+    bispectrumB(:,:)=bispectrumB+C3b;
+    bispectrumC(:,:)=bispectrumC+C3c;
 end
 
 
 % Calculation of means
-powerSpectrumMean=(mean(abs(powerSpectrum),2));
-bispectrumAMean=(mean(abs(bispectrumA),3));
-bispectrumBMean=(mean(abs(bispectrumB),3));
-bispectrumCMean=(mean(abs(bispectrumC),3));
+signalMean=A/50;
+powerSpectrumMean=powerSpectrum/50;
+bispectrumAMean=abs(bispectrumA)/50;
+bispectrumBMean=abs(bispectrumB)/50;
+bispectrumCMean=abs(bispectrumC)/50;
 
 % Plots
+figure;
+plot(X);
+title('Real discrete process X')
+xlabel('Samples')
+
 fs=1;
 n=length(powerSpectrumMean);
 x=(0:n-1)*(fs/n);
