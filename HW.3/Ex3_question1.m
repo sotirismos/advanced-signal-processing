@@ -34,22 +34,59 @@ skew=skew/((N-1)*(sd1^3));
 % Calculate the skewness of V(k)
 sk=skewness(V);
 
-% Calculate the cumulants of X(k)
+% Estimate and plot the 3rd order cumulants of X(k)
 K=32;
 M=64;
 L=20;
 c3=Cumulants3(X,L,K,M);
 
+% 3d plot
+axisX=-20:20;
+axisY=-20:20;
+surf(axisX,axisY,c3)
+title('3rd order cumulants of x[k]')
+
 % Estimate the impulse response of the MA system using the Giannakis formula
 q=5;
-hest=Giannakis(c3,q,L);
+hest=Giannakis(c3,q);
 
 % Sub-Sup estimate using Giannakis formula
 qsub=q-2;
-hsub=Giannakis(c3,qsub,L);
+hsub=Giannakis(c3,qsub);
 
-qsuP=q+3;
-hsup=Giannakis(c3,qsup,L);
+qsup=q+3;
+hsup=Giannakis(c3,qsup);
+
+% Estimate the MA-q system output and calculate the NRMSE
+[nrmse,Xest]=NRMSE(hest,V,N,X);
+
+% Repeat the latter, for sub-estimation and over-estimation
+[nrmsesub,Xsubest]=NRMSE(hsub,V,N,X);
+[nrmsesup,Xsupest]=NRMSE(hsup,V,N,X);
+
+% Repeat the above but instead of x[k] use the noise infected output y[k]
+snr=(30:-5:-5); % SNR values
+y=zeros(length(snr),N);
+hesty=zeros(length(snr),q+1);
+nrmsey=zeros(1,length(snr));
+
+for i=1:length(snr)
+    y(i,:)=awgn(X,snr(i),'measured');
+    c3y=Cumulants3(y(i,:),L,K,M);
+    hesty(i,:)=Giannakis(c3y,q);
+    set(0,'DefaultFigureVisible','off');
+    [nrmsey(i),~]=NRMSE(hesty(i,:),V,N,y(i,:));
+end
+
+set(0,'DefaultFigureVisible','on')
+figure;
+plot(snr,nrmsey);
+title('NRMSE of y vs SNR range')
+xlabel('SNR(dB)')
+ylabel('NRMSE')
+    
+
+
 
 
 
