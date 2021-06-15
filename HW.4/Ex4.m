@@ -130,7 +130,7 @@ c5f=rceps(y5f(:,2));
 %xlabel('Frame Number')
 
 
-% Apply Hamming window, liftering 
+% Apply Hamming window, liftering
 
 %for male "a"
 
@@ -144,7 +144,16 @@ y1mnew=y1m(10000:11199,2);
 wy1m=y1mnew .* w1;
 c1mnew=cceps(wy1m(:,1));
 figure;
-plot(c1mnew);
+plot(y1mnew,'blue');
+hold on
+plot(icceps(c1mnew),'red');
+legend('"Original','"Deconvolved')
+xlabel('Frame Number')
+
+t = zeros(1, 2000);
+t(1:529:end) = 1;
+amale = conv(x,t);
+sound(amale);
 
 %for female "a"
 
@@ -153,12 +162,12 @@ plot(c1mnew);
 %title('Pitch estimation of female "A" vowel')
 %xlabel('Times (s)')
 
-w2=hamming(300);
-y1fnew=y1f(17050:17349,2); 
-wy1f=y1fnew .* w2;
-c1fnew=cceps(wy1f(:,1));
-figure;
-plot(c1fnew);
+%w2=hamming(300);
+%y1fnew=y1f(17050:17349,2); 
+%wy1f=y1fnew .* w2;
+%c1fnew=cceps(wy1f(:,1));
+%figure;
+%plot(c1fnew);
 
 %for male "e"
 
