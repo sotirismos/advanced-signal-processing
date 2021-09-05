@@ -41,7 +41,6 @@ Note, this formula requires exact knowledge of MA order q. It may be impractical
 
 The picture below illustates the block diagram used for the synthesization.
 
-
 ![image](https://user-images.githubusercontent.com/26204902/132141458-93c56f62-1e01-424a-aa63-42f18b3bf81e.png)
 
 
