@@ -1,4 +1,4 @@
-# Advanced-Signal-Processing
+# Advanced Signal Processing
 This repository contains the assignments for the Academic Course "Advanced Signal Processing Techniques" taught in the Spring of 2020-2021 in Aristotle University of Thessaloniki - Electrical & Computer Engineering. 20-21.<br />
 The repo consists of 4 Homework assignment tasks, where each folder has its own Homework presentanion, its Matlab files and its final report discussing the results, respectively.<br />
 Each report was written in LaTex using Overleaf.<br />
